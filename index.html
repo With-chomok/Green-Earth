@@ -18,16 +18,17 @@
     type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-
   <style>
-    *{
-        font-family: "Inter", sans-serif;
+    * {
+      font-family: "Inter", sans-serif;
     }
   </style>
   <body>
+    <!-- header and benner section   -->
     <header>
-      <div class="navbar bg-[#15803D] shadow-sm text-white">
-        <div class="navbar-start">
+      <!-- navbar section -->
+      <nav class="navbar bg-[#15803D] shadow-sm text-white">
+        <div class="navbar-start mx-12">
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
               <svg
@@ -57,7 +58,7 @@
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <a class="font-bold  text-xl">Green Earth</a>
+          <a class="font-bold text-xl">Green Earth</a>
         </div>
         <div class="navbar-center font-medium text-base hidden lg:flex">
           <ul class="menu menu-horizontal px-1">
@@ -66,12 +67,75 @@
             <li><a>Plant a Tree</a></li>
           </ul>
         </div>
-        <div class="navbar-end">
-          <a class="btn bg-[#facc15] rounded-full shadow-none border-none"
+        <div class="navbar-end mx-12">
+          <a
+            class="btn bg-[#facc15] text-[#15803d] rounded-full shadow-none border-none"
             >Plant a Tree</a
           >
         </div>
-      </div>
+      </nav>
+
+      <!-- banner section  -->
+      <section class="bg-[#cff0dc] text-center flex">
+        <div>
+          <img class="bg-left" src="./assets/hero-leaf1.png" alt="" />
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <h1 class="font-bold text-4xl">Plant a Tree, Grow a Future</h1>
+          <p class="text-sm text-[#1f293770] mt-2">
+            Join our mission to plant 1 million trees and make the Earth greener
+            for future generations.
+          </p>
+          <button
+            class="btn bg-[#facc15] text-sm text-[#15803d] rounded-full shadow-none border-none mt-5">
+            Get Involved
+          </button>
+        </div>
+        <div>
+          <img class="bg-right" src="./assets/hero-leaf2.png" alt="" />
+        </div>
+      </section>
     </header>
+
+    <!-- body section start with dynamically  -->
+    <main></main>
+
+    <!-- footer section start  -->
+    
+      <!-- Plant a Tree Today Section -->
+      <section class="flex justify-center items-center bg-[#166534] py-[100px]">
+        <fieldset
+          class="fieldset bg-[#15803d] border-[#0000000f] rounded-xl w-[650px] border p-10 space-y-3">
+          <input
+            type="email"
+            class="input w-full text-[#1F2937] rounded-md"
+            placeholder="Your Name" />
+
+          <input
+            type="password"
+            class="input w-full rounded-md"
+            placeholder="Your Email Address" />
+          <select class="select w-full rounded-md">
+            <option class="text-[#1F2937] text-base" disabled selected>
+              Number of Trees
+            </option>
+            <option>Crimson</option>
+            <option>Amber</option>
+            <option>Velvet</option>
+          </select>
+          <button
+            class="btn bg-[#facc15] text-sm text-[#15803d] rounded-full w-full shadow-none border-none mt-4">
+            Donate Now
+          </button>
+        </fieldset>
+      </section>
+
+      <!-- footer section  -->
+
+
+      <footer class="footer sm:footer-horizontal footer-center bg-[#14532D]  text-white p-4">
+      <p>© 2025 Green Earth. All Rights Reserved.</p>
+    </footer>
+    
   </body>
 </html>
