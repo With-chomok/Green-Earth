@@ -107,29 +107,24 @@
         <div id="catagoryTitle" class="space-y-2"></div>
       </aside>
 
-      <div id="cardDetails" class="grid grid-cols-3 col-span-8 gap-6 items-stretch">
-
+      <div
+        id="cardDetails"
+        class="grid grid-cols-3 col-span-8 gap-6 items-stretch">
+        <!-- Open the modal using ID.showModal() method -->
+        
+        
       </div>
 
-      <aside class="col-span-2 border-amber-600 p-4 bg-white space-y-2">
+      <aside
+        class="col-span-2 border-amber-600 p-4 bg-white space-y-3 max-h-[500px] overflow-y-auto">
         <h1 class="font-semibold text-xl">Your Cart</h1>
         <div
-          class="flex justify-between items-center px-2 py-3 bg-[#F0FDF4] rounded-lg space-y-2 shadow-md">
-          <div class="space-y-2">
-            <h1 class="font-semibold text-sm font-sans block">Mangu trees</h1>
-            <p class="text-[#5C5C5C] text-base">৳500 x 1</p>
-          </div>
-
-          <div>
-            <p class="text-lg font-sans text-[#8C8C8C]">x</p>
-          </div>
+          id="cartContainer"
+          class="flex flex-col space-y-3 rounded-lg shadow-md">
+          <!-- ৳${cartList.parseCartamount} -->
         </div>
         <div class="border-b border-gray-300 h-px"></div>
-
-        <div class="flex justify-between items-center">
-          <h1 class="font-medium text-base text-[#1F2937]">Total:</h1>
-          <p class="font-medium text-base text-[#1F2937]">1000$</p>
-        </div>
+        <div id="cartContainerCount"></div>
       </aside>
     </main>
 
