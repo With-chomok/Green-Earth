@@ -2,7 +2,7 @@ const catagoryTitleName = document.getElementById("catagoryTitle");
 const catagorycardDetails = document.getElementById("cardDetails");
 const cartContainerDetails = document.getElementById("cartContainer");
 const cartContainertotal = document.getElementById("cartContainerCount");
-const mainCards = document.getElementById("mainCard");
+
 
 let carts = [];
 const loadCatagory = () => {
@@ -33,7 +33,7 @@ const displayCatagoryTitle = (catagory) => {
 
       e.target.classList.add("bg-[#15803D]", "text-white", "rounded-md");
       loadCatagoryDetails(e.target.id);
-      loadSpinnerCatagory();
+      
     }
   });
 };
@@ -41,6 +41,7 @@ const displayCatagoryTitle = (catagory) => {
 // Display in a 3-column card layout.
 
 const loadCatagoryDetails = (targetId) => {
+  manageLoading(true)
   fetch(`https://openapi.programming-hero.com/api/category/${targetId}`)
     .then((res) => res.json())
     .then((data) => {
@@ -53,6 +54,7 @@ const loadCatagoryDetails = (targetId) => {
 };
 
 const defaultLoadCatagory = (targetId) => {
+  
   fetch("https://openapi.programming-hero.com/api/plants")
     .then((res) => res.json())
     .then((data) => {
@@ -93,7 +95,8 @@ const displayLoadCatagoriesDetails = (details) => {
         </div>
         
         `;
-  });
+      });
+      manageLoading(false)
 };
 
 // const countCartContainer = () => {
@@ -195,13 +198,18 @@ const displayCardDetails = (card) => {
   `;
   document.getElementById("card_modal").showModal();
 };
+
+
+// loading card by dot 
+const manageLoading = (status) => {
+  if(status == true) {
+  document.getElementById("spinner").classList.remove("hidden")
+  document.getElementById("cardDetails").classList.add("hidden")
+
+  }else{
+    document.getElementById("cardDetails").classList.remove("hidden")
+  document.getElementById("spinner").classList.add("hidden")
+  }
+}
 loadCatagory();
 defaultLoadCatagory();
-// {
-//     "id": 1,
-//     "image": "https://i.ibb.co.com/cSQdg7tf/mango-min.jpg",
-//     "name": "Mango Tree",
-//     "description": "A fast-growing tropical tree that produces delicious, juicy mangoes during summer. Its dense green canopy offers shade, while its sweet fruits are rich in vitamins and minerals.",
-//     "category": "Fruit Tree",
-//     "price": 500
-// }

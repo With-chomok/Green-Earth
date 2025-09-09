@@ -95,21 +95,23 @@
     </header>
 
     <!-- body section start with dynamically -->
-    <div id="mainCard"></div>
+    
     <h1 class="font-semibold text-3xl text-black text-center mt-24 mb-10">
       Choose Your Trees
     </h1>
+    <!-- loading by dots  -->
+    <section id="spinner" class="flex justify-center items-center hidden"><span class="loading loading-dots loading-xl text-[#175f2d]"></span></section>
     <main class="grid grid-cols-1 md:grid-cols-12 w-11/12 mx-auto gap-7">
       <aside class="col-span-1 md:col-span-2 space-y-2">
         <h1 class="font-semibold text-xl">Catagories</h1>
         <div id="catagoryTitle" class="space-y-2"></div>
       </aside>
-
+      
       <div
-        id="cardDetails"
-        class="grid grid-cols-1 md:grid-cols-3 col-span-1 md:col-span-8 gap-6 h-fit items-stretch">
-        <!-- Open the modal using ID.showModal() method -->
-      </div>
+      id="cardDetails"
+      class="grid grid-cols-1 md:grid-cols-3 col-span-1 md:col-span-8 gap-6 h-fit items-stretch">
+      <!-- Open the modal using ID.showModal() method -->
+    </div>
 
       <aside
         class="w-full col-span-1 md:col-span-2 border-amber-600 p-4 bg-white space-y-3 md:max-h-[80vh] md:overflow-y-auto rounded-lg shadow-sm">
