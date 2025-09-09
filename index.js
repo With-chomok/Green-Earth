@@ -3,7 +3,6 @@ const catagorycardDetails = document.getElementById("cardDetails");
 const cartContainerDetails = document.getElementById("cartContainer");
 const cartContainertotal = document.getElementById("cartContainerCount");
 
-
 let carts = [];
 const loadCatagory = () => {
   fetch("https://openapi.programming-hero.com/api/categories")
@@ -33,7 +32,6 @@ const displayCatagoryTitle = (catagory) => {
 
       e.target.classList.add("bg-[#15803D]", "text-white", "rounded-md");
       loadCatagoryDetails(e.target.id);
-      
     }
   });
 };
@@ -41,7 +39,7 @@ const displayCatagoryTitle = (catagory) => {
 // Display in a 3-column card layout.
 
 const loadCatagoryDetails = (targetId) => {
-  manageLoading(true)
+  manageLoading(true);
   fetch(`https://openapi.programming-hero.com/api/category/${targetId}`)
     .then((res) => res.json())
     .then((data) => {
@@ -54,7 +52,7 @@ const loadCatagoryDetails = (targetId) => {
 };
 
 const defaultLoadCatagory = (targetId) => {
-  
+  manageLoading(true);
   fetch("https://openapi.programming-hero.com/api/plants")
     .then((res) => res.json())
     .then((data) => {
@@ -65,9 +63,9 @@ const defaultLoadCatagory = (targetId) => {
 
 const displayLoadCatagoriesDetails = (details) => {
   catagorycardDetails.innerHTML = "";
+
   details.forEach((detail) => {
     // console.log(detail);
-
     catagorycardDetails.innerHTML += `
         <div class="card bg-base-100 shadow-sm p-4  flex flex-col">
           <div id="${detail.id}" class="space-y-3 h-full  flex flex-col">
@@ -84,7 +82,7 @@ const displayLoadCatagoriesDetails = (details) => {
                 class="bg-[#DCFCE7] text-[#15803D] px-3 py-1 rounded-[400px] font-medium">
                 ${detail.category}
               </h1>
-              <h1>৳<span>${detail.price}</span></h1>
+              <h1>৳<span id="cardPriceID">${detail.price}</span></h1>
             </div>
 
             <button id = "catagoryCardBtn"
@@ -95,8 +93,8 @@ const displayLoadCatagoriesDetails = (details) => {
         </div>
         
         `;
-      });
-      manageLoading(false)
+  });
+  manageLoading(false);
 };
 
 // const countCartContainer = () => {
@@ -133,12 +131,11 @@ const handleCartContainer = (e) => {
 
 const displayCartContainer = (carts) => {
   // console.log(carts);
-  cartContainer.innerHTML = "";
-
+  // cartContainer.innerHTML = "";
+  cartContainerDetails.innerHTML = "";
+  let total = 0;
   carts.forEach((cartList) => {
-    // console.log(cartList.id);
-
-    // console.log(cartList);
+    total += cartList.parseCartamount;
 
     cartContainerDetails.innerHTML += `
     
@@ -158,19 +155,19 @@ const displayCartContainer = (carts) => {
     
     
     `;
-    cartContainertotal.innerHTML = "";
-    cartContainertotal.innerHTML += `
+  });
+  cartContainertotal.innerHTML = `
     <div  class="flex justify-between items-center">
     <h1 class="font-medium text-base text-[#1F2937]">Total:</h1>
-    <p class="font-medium text-base text-[#1F2937]">৳<span>${cartList.parseCartamount}</p>
+    <p class="font-medium text-base text-[#1F2937]">৳<span>${total}</span></p>
     </div>
-        `;
-  });
+  `;
 };
-
 const handleDelete = (deleteId) => {
-  const filtered = carts.filter((cartList) => cartList.id !== deleteId);
-  carts = filtered;
+  const deleteCartItem = carts.findIndex((cartList) => cartList.id === deleteId);
+  if(deleteCartItem !== -1){
+    carts.splice(deleteCartItem, 1)
+  }
   displayCartContainer(carts);
 };
 
@@ -199,17 +196,15 @@ const displayCardDetails = (card) => {
   document.getElementById("card_modal").showModal();
 };
 
-
-// loading card by dot 
+// loading card by dot
 const manageLoading = (status) => {
-  if(status == true) {
-  document.getElementById("spinner").classList.remove("hidden")
-  document.getElementById("cardDetails").classList.add("hidden")
-
-  }else{
-    document.getElementById("cardDetails").classList.remove("hidden")
-  document.getElementById("spinner").classList.add("hidden")
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("cardDetails").classList.add("hidden");
+  } else {
+    document.getElementById("cardDetails").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
   }
-}
+};
 loadCatagory();
 defaultLoadCatagory();
