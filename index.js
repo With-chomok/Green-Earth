@@ -62,7 +62,6 @@ const defaultLoadCatagory = (targetId) => {
 };
 
 const displayLoadCatagoriesDetails = (details) => {
-
   catagorycardDetails.innerHTML = "";
   details.forEach((detail) => {
     // console.log(detail);
@@ -74,7 +73,7 @@ const displayLoadCatagoriesDetails = (details) => {
               <img src=${detail.image} alt="" class="w-full h-40 object-cover" />
             </figure>
 
-            <h2 class=" card-title">${detail.name}</h2>
+            <h2 onclick= "showModal(${detail.id})" class="cursor-pointer card-title ">${detail.name}</h2>
             <p class=" line-clamp-3">
               ${detail.description}
             </p>
@@ -172,36 +171,37 @@ const handleDelete = (deleteId) => {
   displayCartContainer(carts);
 };
 
-// const showModal =() => {
-//   fetch("https://openapi.programming-hero.com/api/plant/1")
-//   .then(res => res.json())
-//   .then(data => {
+const showModal = (id) => {
+  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayCardDetails(data.plants));
+};
+const displayCardDetails = (card) => {
+  console.log(card);
 
-//     data.innerHTML += `
-
-//     // <dialog id="modal" class="modal modal-bottom sm:modal-middle">
-//     //         <div class="modal-box">
-//     //           <h3 class="text-lg font-bold">Hello!</h3>
-//     //           <p class="py-4">Press ESC key or click the button below to close</p>
-//     //           <div class="modal-action">
-//     //             <form method="dialog">
-//     //               {/* if there is a button in form, it will close the modal  */}
-//     //               <button class="btn">Close</button>
-//     //             </form>
-//     //           </div>
-//     //         </div>
-//     //       </dialog>
-//     `
-//   })
-//     }
-// const loadSpinnerCatagory = () => {
-//   mainCards.innerHTML=''
-//   mainCards.innerHTML += `
+  const detailsBox = document.getElementById("detailsModalContainer");
+  detailsBox.innerHTML = "";
+  detailsBox.innerHTML += `
+      <div class = "p-2 space-y-2">
+      <h2 class = "text-2xl font-bold">${card.name}</h2>
+     
+      <img src=${card.image} alt="" class="w-full h-60 object-cover rounded-lg"/>
+      <p> <span class = "text-lg font-semibold"> Category: </span>${card.category}</p>
+      <p><span class = "text-lg font-semibold">Price:</span> ৳${card.price}</p>
+      <p><span class = "text-base font-semibold">Description:</span> ${card.description}</p>
+      </div>
   
-//   <span class="loading loading-spinner text-info text-center"></span>
-  
-//   `;
- 
-//   };
+  `;
+  document.getElementById("card_modal").showModal();
+};
 loadCatagory();
 defaultLoadCatagory();
+// {
+//     "id": 1,
+//     "image": "https://i.ibb.co.com/cSQdg7tf/mango-min.jpg",
+//     "name": "Mango Tree",
+//     "description": "A fast-growing tropical tree that produces delicious, juicy mangoes during summer. Its dense green canopy offers shade, while its sweet fruits are rich in vitamins and minerals.",
+//     "category": "Fruit Tree",
+//     "price": 500
+// }
