@@ -1,7 +1,9 @@
 const catagoryTitleName = document.getElementById("catagoryTitle");
 const catagorycardDetails = document.getElementById("cardDetails");
 const cartContainerDetails = document.getElementById("cartContainer");
-const cartContainertotal = document.getElementById("cartContainerCount")
+const cartContainertotal = document.getElementById("cartContainerCount");
+const mainCards = document.getElementById("mainCard");
+
 let carts = [];
 const loadCatagory = () => {
   fetch("https://openapi.programming-hero.com/api/categories")
@@ -16,7 +18,7 @@ const loadCatagory = () => {
 const displayCatagoryTitle = (catagory) => {
   catagory.forEach((title) => {
     catagoryTitleName.innerHTML += `
-            <p id = "${title.id}" class="text-[#1F2937] font-medium text-base py-2 px-3 cursor-pointer hover:bg-[#15803D] hover:text-white rounded-md ">
+            <p id = "${title.id}" class="text-[#1F2937] font-medium text-base py-2 px-3 cursor-pointer hover:bg-[#1ab352] hover:text-white rounded-md ">
             ${title.category_name}
           </p>
         `;
@@ -31,6 +33,7 @@ const displayCatagoryTitle = (catagory) => {
 
       e.target.classList.add("bg-[#15803D]", "text-white", "rounded-md");
       loadCatagoryDetails(e.target.id);
+      loadSpinnerCatagory();
     }
   });
 };
@@ -49,30 +52,30 @@ const loadCatagoryDetails = (targetId) => {
     });
 };
 
-
-const defaultLoadCatagory = (plants) => {
+const defaultLoadCatagory = (targetId) => {
   fetch("https://openapi.programming-hero.com/api/plants")
-   .then((res) => res.json())
+    .then((res) => res.json())
     .then((data) => {
       const dataPlants = data.plants;
       displayLoadCatagoriesDetails(dataPlants);
-    })
-}
+    });
+};
 
 const displayLoadCatagoriesDetails = (details) => {
+
   catagorycardDetails.innerHTML = "";
   details.forEach((detail) => {
     // console.log(detail);
 
     catagorycardDetails.innerHTML += `
-        <div class="card bg-base-100 shadow-sm p-4 h-full flex flex-col">
-          <div id="${detail.id}" class="space-y-3 h-full flex flex-col">
+        <div class="card bg-base-100 shadow-sm p-4  flex flex-col">
+          <div id="${detail.id}" class="space-y-3 h-full  flex flex-col">
             <figure class="bg-gray-300 rounded-xl">
               <img src=${detail.image} alt="" class="w-full h-40 object-cover" />
             </figure>
 
-            <h2 onclick="showModal()" class="card-title">${detail.name}</h2>
-            <p class="flex-grow line-clamp-3">
+            <h2 class=" card-title">${detail.name}</h2>
+            <p class=" line-clamp-3">
               ${detail.description}
             </p>
             <div class="flex justify-between items-center">
@@ -84,18 +87,15 @@ const displayLoadCatagoriesDetails = (details) => {
             </div>
 
             <button id = "catagoryCardBtn"
-              class="btn bg-[#15803D] text-sm text-white rounded-full w-full shadow-none border-none">
+              class="btn bg-[#15803D] text-sm text-white rounded-full w-full shadow-none border-none hover:bg-[#13c755]">
               Add to Cart
             </button>
           </div>
         </div>
         
         `;
-        
   });
 };
-
-
 
 // const countCartContainer = () => {
 
@@ -109,33 +109,30 @@ catagorycardDetails.addEventListener("click", (e) => {
 
 const handleCartContainer = (e) => {
   // console.log(e.target);
-  
+
   const cartTitle = e.target.parentNode.children[1].innerText;
   const cartamount =
-  e.target.parentNode.childNodes[7].children[1].children[0].innerText;
+    e.target.parentNode.childNodes[7].children[1].children[0].innerText;
   const id = e.target.parentNode.id;
   // console.log(id);
-  
+
   const parseCartamount = parseInt(cartamount);
   // console.log(parseCartamount);
-  
-  
-  
+
   carts.push({
     id: id,
     cartTitle: cartTitle,
     parseCartamount: parseCartamount,
   });
   // console.log(carts);
-  
-  
+
   displayCartContainer(carts);
 };
 
 const displayCartContainer = (carts) => {
   // console.log(carts);
   cartContainer.innerHTML = "";
-  
+
   carts.forEach((cartList) => {
     // console.log(cartList.id);
 
@@ -166,9 +163,6 @@ const displayCartContainer = (carts) => {
     <p class="font-medium text-base text-[#1F2937]">৳<span>${cartList.parseCartamount}</p>
     </div>
         `;
-
-        
-        
   });
 };
 
@@ -183,10 +177,8 @@ const handleDelete = (deleteId) => {
 //   .then(res => res.json())
 //   .then(data => {
 
-
 //     data.innerHTML += `
-    
-    
+
 //     // <dialog id="modal" class="modal modal-bottom sm:modal-middle">
 //     //         <div class="modal-box">
 //     //           <h3 class="text-lg font-bold">Hello!</h3>
@@ -202,7 +194,14 @@ const handleDelete = (deleteId) => {
 //     `
 //   })
 //     }
+// const loadSpinnerCatagory = () => {
+//   mainCards.innerHTML=''
+//   mainCards.innerHTML += `
+  
+//   <span class="loading loading-spinner text-info text-center"></span>
+  
+//   `;
+ 
+//   };
 loadCatagory();
-defaultLoadCatagory()
-
-
+defaultLoadCatagory();
